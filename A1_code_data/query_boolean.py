@@ -121,14 +121,18 @@ if __name__ == '__main__':
         raise Exception()
 
     # the list of queries asked for in the assignment text
-    queries = [
-        "Workbooks",
-        "Australasia OR Airbase",
-        "Warm AND WELCOMING",
-        "Global AND SPACE AND economies",
-        "SCIENCE OR technology AND advancement AND PLATFORM",
-        "Wireless OR Communication AND channels OR SENSORY AND INTELLIGENCE",
-    ]
+    # queries = [
+    #     "Workbooks",
+    #     "Australasia OR Airbase",
+    #     "Warm AND WELCOMING",
+    #     "Global AND SPACE AND economies",
+    #     "SCIENCE OR technology AND advancement AND PLATFORM",
+    #     "Wireless OR Communication AND channels OR SENSORY AND INTELLIGENCE",
+    # ]
+    queries = ["Workbooks",
+               "physical AND therapists",
+               "SCIENCE OR technology AND advancement AND PLATFORM"
+               ]
 
     # run each of the queries and print the result
     ids_to_doc = {docid: path for (path, docid) in doc_ids.items()}
