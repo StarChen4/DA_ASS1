@@ -1,5 +1,10 @@
 import nltk
-from nltk.stem import PorterStemmer
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+import re
+
+# Download required NLTK data
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 
 def process_tokens(toks):
@@ -8,10 +13,10 @@ def process_tokens(toks):
     # uncomment the one you want to test below 
     # make sure to rebuild the index
 
-    #return process_tokens_1(toks)
-    #return process_tokens_2(toks)
-    #return process_tokens_3(toks)
-    return process_tokens_original(toks)
+    # return process_tokens_1(toks)
+    # return process_tokens_2(toks)
+    return process_tokens_3(toks)
+    # return process_tokens_original(toks)
 
 
 # get the nltk stopwords list
@@ -39,8 +44,7 @@ def process_tokens_original(toks):
 
 
 def process_tokens_1(toks):
-    """ Perform processing on tokens. This is the Linguistics Modules
-    phase of index construction
+    """First modification: Stemming
 
     Args:
         toks (list(str)): all the tokens in a single document
@@ -48,23 +52,20 @@ def process_tokens_1(toks):
     Returns:
         list(str): tokens after processing
     """
+    stemmer = PorterStemmer()
     new_toks = []
     for t in toks:
         # ignore stopwords
         if t in stopwords or t.lower() in stopwords:
             continue
-        # lowercase token
-        t = t.lower()
-
-        #TODO: your code should modify t and/or do some sort of filtering
-
+        # lowercase and stem token
+        t = stemmer.stem(t.lower())  # Apply porterStemming on the tokens
         new_toks.append(t)
     return new_toks
 
 
 def process_tokens_2(toks):
-    """ Perform processing on tokens. This is the Linguistics Modules
-    phase of index construction
+    """ Second modification: Lemmatization
 
     Args:
         toks (list(str)): all the tokens in a single document
@@ -72,23 +73,21 @@ def process_tokens_2(toks):
     Returns:
         list(str): tokens after processing
     """
+    lemmatizer = WordNetLemmatizer()
     new_toks = []
     for t in toks:
         # ignore stopwords
         if t in stopwords or t.lower() in stopwords:
             continue
-        # lowercase token
-        t = t.lower()
-
-        #TODO: your code should modify t and/or do some sort of filtering
+        # lowercase and lemmatize token
+        t = lemmatizer.lemmatize(t.lower())
 
         new_toks.append(t)
     return new_toks
 
 
 def process_tokens_3(toks):
-    """ Perform processing on tokens. This is the Linguistics Modules
-    phase of index construction
+    """ Third modification: Lemmatization + Number handling + Special character removal
 
     Args:
         toks (list(str)): all the tokens in a single document
@@ -96,6 +95,7 @@ def process_tokens_3(toks):
     Returns:
         list(str): tokens after processing
     """
+    lemmatizer = WordNetLemmatizer()
     new_toks = []
     for t in toks:
         # ignore stopwords
@@ -103,10 +103,19 @@ def process_tokens_3(toks):
             continue
         # lowercase token
         t = t.lower()
-
-        #TODO: your code should modify t and/or do some sort of filtering
-
-        new_toks.append(t)
+        # remove special characters
+        t = re.sub(r'[^a-zA-Z0-9]', '', t)
+        # handle numbers
+        if t.isdigit():
+            if len(t) == 4:  # Possible year
+                new_toks.append('year')
+            else:
+                new_toks.append('number')
+        else:
+            # lemmatize token
+            t = lemmatizer.lemmatize(t)
+            if t:  # only add non-empty tokens
+                new_toks.append(t)
     return new_toks
 
 
