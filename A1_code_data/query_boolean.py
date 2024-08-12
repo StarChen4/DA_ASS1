@@ -5,20 +5,78 @@ from string_processing import (
 )
 
 
-def intersect_query(doc_list1, doc_list2):
-    # TODO: you might like to use a function like this in your run_boolean_query implementation
-    # for full marks this should be the O(n + m) intersection algorithm for sorted lists
-    # using data structures such as sets or dictionaries in this function will not score full marks
+def get_doc_id(item):
+    """Helper function to get doc_id from either an int or a tuple.
 
-    return res
+    Args:
+        item (int or tuple): The item which could either be an integer (doc_id)
+                             or a tuple (doc_id, term_frequency).
+
+    Returns:
+        int: The doc_id extracted from the item.
+    """
+    return item if isinstance(item, int) else item[0]
+
+
+def intersect_query(doc_list1, doc_list2):
+    """Perform intersection of two sorted document lists.
+
+    This function finds the common document IDs between two sorted lists of documents.
+
+    Args:
+        doc_list1 (list): The first sorted list of document items (either int or tuple).
+        doc_list2 (list): The second sorted list of document items (either int or tuple).
+
+    Returns:
+        list: A list of document IDs that are present in both doc_list1 and doc_list2.
+    """
+    result = []  # List to store the intersected document IDs
+    i, j = 0, 0  # Pointers for doc_list1 and doc_list2
+    while i < len(doc_list1) and j < len(doc_list2):
+        id1 = get_doc_id(doc_list1[i])  # Extract doc_id from doc_list1[i]
+        id2 = get_doc_id(doc_list2[j])  # Extract doc_id from doc_list2[j]
+        if id1 == id2:
+            result.append(id1)  # If IDs match, add to the result
+            i += 1  # Move both pointers forward
+            j += 1
+        elif id1 < id2:
+            i += 1  # Move pointer i forward if id1 is smaller
+        else:
+            j += 1  # Move pointer j forward if id2 is smaller
+    return result
 
 
 def union_query(doc_list1, doc_list2):
-    # TODO: you might like to use a function like this in your run_boolean_query implementation
-    # for full marks this should be the O(n + m) union algorithm for sorted lists
-    # using data structures such as sets or dictionaries in this function will not score full marks
+    """Perform union of two sorted document lists.
 
-    return res
+    This function combines two sorted lists of document items and returns all unique document IDs.
+
+    Args:
+        doc_list1 (list): The first sorted list of document items (either int or tuple).
+        doc_list2 (list): The second sorted list of document items (either int or tuple).
+
+    Returns:
+        list: A list of unique document IDs from both doc_list1 and doc_list2.
+    """
+    result = []  # List to store the union of document IDs
+    i, j = 0, 0  # Pointers for doc_list1 and doc_list2
+    while i < len(doc_list1) and j < len(doc_list2):
+        id1 = get_doc_id(doc_list1[i])  # Extract doc_id from doc_list1[i]
+        id2 = get_doc_id(doc_list2[j])  # Extract doc_id from doc_list2[j]
+        if id1 == id2:
+            result.append(id1)  # If IDs match, add to the result
+            i += 1  # Move both pointers forward
+            j += 1
+        elif id1 < id2:
+            result.append(id1)  # Add id1 to result if it's smaller
+            i += 1  # Move pointer i forward
+        else:
+            result.append(id2)  # Add id2 to result if it's smaller
+            j += 1  # Move pointer j forward
+    # Add any remaining items from either list to the result
+    result.extend([get_doc_id(doc) for doc in doc_list1[i:]])
+    result.extend([get_doc_id(doc) for doc in doc_list2[j:]])
+    return result
 
 
 def run_boolean_query(query_string, index):
@@ -31,10 +89,25 @@ def run_boolean_query(query_string, index):
     Returns:
         list(int): a list of doc_ids which are relevant to the query
     """
+    tokens = query_string.split()  # Split the query string into tokens
+    if not tokens:
+        return []  # If no tokens, return an empty list
 
-    # TODO: implement this function
+    # Initialize result with documents for the first token
+    result = [get_doc_id(doc) for doc in index.get(tokens[0].lower(), [])]
 
-    return relevant_docs
+    # Process each token and operator in the query
+    for i in range(1, len(tokens), 2):
+        operator = tokens[i]  # Get the operator (AND/OR)
+        term = tokens[i + 1].lower()  # Get the next term
+        doc_list = index.get(term, [])  # Retrieve the posting list for the term
+
+        if operator == "AND":
+            result = intersect_query(result, doc_list)  # Perform intersection
+        elif operator == "OR":
+            result = union_query(result, doc_list)  # Perform union
+
+    return result  # Return the final list of document IDs
 
 
 if __name__ == '__main__':
@@ -65,4 +138,3 @@ if __name__ == '__main__':
         res = sorted([ids_to_doc[docid] for docid in doc_list])
         for path in res:
             print(path)
-
