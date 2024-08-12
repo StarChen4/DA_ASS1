@@ -77,16 +77,22 @@ def calculate_statistics(documents):
     Returns:
     dict: A dictionary containing various statistics
     """
+    # Initialize lists to hold all tokens, lemmas, and POS tags for the entire collection
     all_tokens = []
     all_lemmas = []
     doc_stats = []
     all_pos_tags = []
-
+    # Iterate over each document in the provided list
     for doc in tqdm(documents, desc="Processing documents"):
+        # Process the document to obtain tokens, lemmas, and POS tags
         tokens, lemmas, pos_tags = process_document(doc)
+
+        # Add the tokens, lemmas, and POS tags of the document to the overall lists
         all_tokens.extend(tokens)
         all_lemmas.extend(lemmas)
         all_pos_tags.extend(pos_tags)
+
+        # Collect statistics for the current document: total and unique counts of tokens and lemmas
         doc_stats.append({
             'tokens': len(tokens),
             'unique_tokens': len(set(tokens)),
@@ -94,27 +100,34 @@ def calculate_statistics(documents):
             'unique_lemmas': len(set(lemmas))
         })
 
+    # Compute and return the overall statistics for the document collection
     return {
-        'number_documents': len(documents),
-        'total_tokens': len(all_tokens),
-        'unique_tokens': len(set(all_tokens)),
-        'total_lemmas': len(all_lemmas),
-        'unique_lemmas': len(set(all_lemmas)),
-        'avg_tokens': sum(d['tokens'] for d in doc_stats) / len(doc_stats),
+        'number_documents': len(documents),  # Total number of documents
+        'total_tokens': len(all_tokens),  # Total number of tokens in the collection
+        'unique_tokens': len(set(all_tokens)),  # Total number of unique tokens in the collection
+        'total_lemmas': len(all_lemmas),  # Total number of lemmas in the collection
+        'unique_lemmas': len(set(all_lemmas)),  # Total number of unique lemmas in the collection
+        'avg_tokens': sum(d['tokens'] for d in doc_stats) / len(doc_stats),  # Average number of tokens per document
         'avg_unique_tokens': sum(d['unique_tokens'] for d in doc_stats) / len(doc_stats),
-        'avg_lemmas': sum(d['lemmas'] for d in doc_stats) / len(doc_stats),
+        # Average number of unique tokens per document
+        'avg_lemmas': sum(d['lemmas'] for d in doc_stats) / len(doc_stats),  # Average number of lemmas per document
         'avg_unique_lemmas': sum(d['unique_lemmas'] for d in doc_stats) / len(doc_stats),
-        'max_tokens': max(d['tokens'] for d in doc_stats),
-        'min_tokens': min(d['tokens'] for d in doc_stats),
-        'max_lemmas': max(d['lemmas'] for d in doc_stats),
-        'min_lemmas': min(d['lemmas'] for d in doc_stats),
-        'most_common_unigrams': get_most_common(all_tokens),
-        'most_common_bigrams': get_most_common(list(ngrams(all_tokens, 2))),
-        'most_common_trigrams': get_most_common(list(ngrams(all_tokens, 3))),
+        # Average number of unique lemmas per document
+        'max_tokens': max(d['tokens'] for d in doc_stats),  # Maximum number of tokens in a single document
+        'min_tokens': min(d['tokens'] for d in doc_stats),  # Minimum number of tokens in a single document
+        'max_lemmas': max(d['lemmas'] for d in doc_stats),  # Maximum number of lemmas in a single document
+        'min_lemmas': min(d['lemmas'] for d in doc_stats),  # Minimum number of lemmas in a single document
+        'most_common_unigrams': get_most_common(all_tokens),  # Most common unigrams in the collection
+        'most_common_bigrams': get_most_common(list(ngrams(all_tokens, 2))),  # Most common bigrams in the collection
+        'most_common_trigrams': get_most_common(list(ngrams(all_tokens, 3))),  # Most common trigrams in the collection
         'most_common_nouns': get_most_common([word for word, pos in all_pos_tags if pos.startswith('NN')]),
+        # Most common nouns in the collection
         'most_common_verbs': get_most_common([word for word, pos in all_pos_tags if pos.startswith('VB')]),
+        # Most common verbs in the collection
         'most_common_adjectives': get_most_common([word for word, pos in all_pos_tags if pos.startswith('JJ')]),
+        # Most common adjectives in the collection
         'most_common_adverbs': get_most_common([word for word, pos in all_pos_tags if pos.startswith('RB')])
+        # Most common adverbs in the collection
     }
 
 
