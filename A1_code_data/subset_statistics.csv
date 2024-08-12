@@ -1,0 +1,21 @@
+Statistic,Value
+number_documents,5863
+total_tokens,2322313
+unique_tokens,103548
+total_lemmas,2322313
+unique_lemmas,97944
+avg_tokens,396.09636704758657
+avg_unique_tokens,178.7479106259594
+avg_lemmas,396.09636704758657
+avg_unique_lemmas,171.62220706123145
+max_tokens,16128
+min_tokens,4
+max_lemmas,16128
+min_lemmas,4
+most_common_unigrams,"[('gif', 19420), ('information', 13975), ('1', 12513), ('gov', 11986), ('2', 8964), ('http', 8227), ('2001', 7681), ('data', 7453), ('site', 7245), ('3', 7092)]"
+most_common_bigrams,"[(('http', 'www'), 4100), (('home', 'page'), 2443), (('web', 'site'), 2127), (('united', 'states'), 2089), (('spacer', 'gif'), 1800), (('nasa', 'gov'), 1729), (('e', 'mail'), 1443), (('geological', 'survey'), 1184), (('u', 'geological'), 1071), (('contact', 'us'), 1001)]"
+most_common_trigrams,"[(('u', 'geological', 'survey'), 1064), (('gif', 'spacer', 'gif'), 945), (('spacer', 'gif', 'spacer'), 768), (('gif', 'clearpixel', 'gif'), 633), (('clearpixel', 'gif', 'clearpixel'), 619), (('open', 'file', 'report'), 581), (('frequently', 'asked', 'questions'), 455), (('gsfc', 'nasa', 'gov'), 448), (('survey', 'open', 'file'), 438), (('geological', 'survey', 'open'), 437)]"
+most_common_nouns,"[('gif', 14293), ('information', 13975), ('gov', 8574), ('http', 7506), ('site', 7245), ('data', 7158), ('program', 6463), ('home', 6442), ('page', 6428), ('state', 6337)]"
+most_common_verbs,"[('used', 2371), ('using', 2016), ('including', 1904), ('gov', 1876), ('based', 1775), ('provide', 1586), ('provides', 1546), ('go', 1506), ('following', 1483), ('use', 1399)]"
+most_common_adjectives,"[('new', 6431), ('national', 5854), ('u', 5502), ('federal', 4608), ('public', 4101), ('gif', 3643), ('nasa', 3433), ('available', 3300), ('last', 2365), ('local', 2163)]"
+most_common_adverbs,"[('also', 3487), ('well', 1322), ('back', 1221), ('first', 986), ('however', 889), ('currently', 736), ('frequently', 581), ('november', 536), ('even', 503), ('directly', 482)]"

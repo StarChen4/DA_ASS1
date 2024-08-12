@@ -1,0 +1,21 @@
+Statistic,Value
+number_documents,33848
+total_tokens,13404562
+unique_tokens,299887
+total_lemmas,13404562
+unique_lemmas,290033
+avg_tokens,396.02227605766956
+avg_unique_tokens,178.9847849208225
+avg_lemmas,396.02227605766956
+avg_unique_lemmas,171.88383360907588
+max_tokens,16520
+min_tokens,4
+max_lemmas,16520
+min_lemmas,4
+most_common_unigrams,"[('gif', 106448), ('information', 79552), ('1', 77586), ('gov', 69823), ('2', 54866), ('0', 51014), ('http', 48544), ('3', 44012), ('site', 41057), ('2001', 40889)]"
+most_common_bigrams,"[(('http', 'www'), 24706), (('home', 'page'), 14125), (('united', 'states'), 12281), (('web', 'site'), 11637), (('spacer', 'gif'), 10681), (('nasa', 'gov'), 9662), (('e', 'mail'), 9329), (('usgs', 'gov'), 6255), (('gif', 'spacer'), 6225), (('contact', 'us'), 5625)]"
+most_common_trigrams,"[(('gif', 'spacer', 'gif'), 6174), (('spacer', 'gif', 'spacer'), 4550), (('u', 'geological', 'survey'), 3647), (('gif', 'clearpixel', 'gif'), 3314), (('clearpixel', 'gif', 'clearpixel'), 3218), (('gsfc', 'nasa', 'gov'), 2791), (('frequently', 'asked', 'questions'), 2347), (('jpl', 'nasa', 'gov'), 1985), (('definition', 'source', 'info'), 1638), (('adobe', 'acrobat', 'reader'), 1592)]"
+most_common_nouns,"[('information', 79552), ('gif', 78953), ('gov', 50912), ('http', 44286), ('site', 41057), ('data', 38477), ('program', 37797), ('home', 36896), ('page', 36716), ('state', 35051)]"
+most_common_verbs,"[('used', 12667), ('using', 10676), ('including', 10417), ('based', 9953), ('gov', 9798), ('provide', 9257), ('following', 8855), ('go', 8521), ('provides', 8301), ('include', 8211)]"
+most_common_adjectives,"[('new', 36012), ('national', 35327), ('u', 31838), ('federal', 24934), ('public', 23265), ('gif', 19870), ('available', 19161), ('nasa', 18956), ('general', 13529), ('last', 13003)]"
+most_common_adverbs,"[('also', 19853), ('well', 7491), ('back', 6973), ('first', 5533), ('however', 5074), ('currently', 3825), ('frequently', 3103), ('even', 2991), ('november', 2847), ('directly', 2629)]"
