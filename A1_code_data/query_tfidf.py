@@ -60,10 +60,6 @@ def run_query(query_string, index, doc_freq, doc_norm, num_docs):
         sorted so that the most similar documents to the query are at the top.
     """
 
-    # TODO: Implement this function using tfidf
-    # Hint: This function is similar to the run_query function in query.py
-    #       but should use tfidf instead of term frequency
-
     # pre-process the query string
     query_tokens = get_query_tokens(query_string)
     query_counts = count_query_tokens(query_tokens)
